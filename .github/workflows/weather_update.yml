@@ -1,0 +1,66 @@
+name: Update Weather and Deploy React App
+
+on:
+  schedule:
+    - cron: '0 0,3,8 * * *' # 日本時間 9:00, 12:00, 17:00
+  workflow_dispatch: # 手動実行ボタン
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. 天気データを取得して public/weather_log.json を更新
+      - name: Fetch Weather Data
+        run: |
+          RESPONSE=$(curl -s "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&current=temperature_2m,weather_code&timezone=Asia%2FTokyo")
+          TIME=$(echo $RESPONSE | jq -r '.current.time')
+          TEMP=$(echo $RESPONSE | jq -r '.current.temperature_2m')
+          CODE=$(echo $RESPONSE | jq -r '.current.weather_code')
+          FILE="public/weather_log.json"
+          [ ! -f "$FILE" ] && echo "[]" > "$FILE"
+          NEW_DATA=$(jq -n --arg d "$TIME" --arg w "$W" --argjson t "$TEMP" '{date: $d, weather: $w, temperature: $t}')
+          jq ". += [$NEW_DATA]" "$FILE" > tmp.json && mv tmp.json "$FILE"
+
+      # 2. React (Vite) のビルド準備
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build React App
+        run: pnpm run build
+
+      # 3. GitHub Pagesへデプロイ
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+      # 4. JSONの変更をリポジトリに保存 (これで草が生える)
+      - name: Commit and Push JSON
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/weather_log.json
+          git commit -m "chore: update weather data [skip ci]" || echo "No changes to commit"
+          git push

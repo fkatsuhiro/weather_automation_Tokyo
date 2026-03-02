@@ -1,0 +1,24 @@
+:root {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  line-height: 1.5;
+  
+  /* 明るい背景をデフォルトに */
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+body {
+  margin: 0;
+  /* flex や place-items: center を削除することで、上から順に並ぶようになります */
+  display: block;
+  min-height: 100vh;
+}
+
+/* ダークモード対応を無効化するか、調整する */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 真っ黒ではなく、少し高級感のあるダークグレーに */
+    /*background-color: #1a1a1a;*/
+    color: #f5f5f5;
+  }
+}
