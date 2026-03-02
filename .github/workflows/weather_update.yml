@@ -26,7 +26,7 @@ jobs:
           CODE=$(echo $RESPONSE | jq -r '.current.weather_code')
           FILE="public/weather_log.json"
           [ ! -f "$FILE" ] && echo "[]" > "$FILE"
-          NEW_DATA=$(jq -n --arg d "$TIME" --arg w "$W" --argjson t "$TEMP" '{date: $d, weather: $w, temperature: $t}')
+          NEW_DATA=$(jq -n --arg d "$TIME" --argjson c "$CODE" --argjson t "$TEMP" '{date: $d, weather_code: $c, temperature: $t}')
           jq ". += [$NEW_DATA]" "$FILE" > tmp.json && mv tmp.json "$FILE"
 
       # 2. React (Vite) のビルド準備
