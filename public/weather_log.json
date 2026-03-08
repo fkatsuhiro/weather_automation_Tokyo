@@ -83,5 +83,10 @@
     "date": "2026-03-08T13:45",
     "weather_code": 0,
     "temperature": 9.6
+  },
+  {
+    "date": "2026-03-08T17:30",
+    "weather_code": 0,
+    "temperature": 7.8
   }
 ]
