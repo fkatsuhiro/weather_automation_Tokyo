@@ -178,5 +178,10 @@
     "date": "2026-03-15T11:30",
     "weather_code": 0,
     "temperature": 11.6
+  },
+  {
+    "date": "2026-03-15T14:00",
+    "weather_code": 0,
+    "temperature": 13.1
   }
 ]
