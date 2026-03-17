@@ -203,5 +203,10 @@
     "date": "2026-03-16T18:00",
     "weather_code": 1,
     "temperature": 10.7
+  },
+  {
+    "date": "2026-03-17T11:15",
+    "weather_code": 1,
+    "temperature": 10.8
   }
 ]
