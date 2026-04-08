@@ -523,5 +523,10 @@
     "date": "2026-04-07T11:30",
     "weather_code": 53,
     "temperature": 16.0
+  },
+  {
+    "date": "2026-04-08T11:30",
+    "weather_code": 0,
+    "temperature": 14.3
   }
 ]
