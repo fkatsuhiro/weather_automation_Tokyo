@@ -568,5 +568,10 @@
     "date": "2026-04-10T18:00",
     "weather_code": 51,
     "temperature": 18.5
+  },
+  {
+    "date": "2026-04-11T11:30",
+    "weather_code": 0,
+    "temperature": 22.6
   }
 ]
