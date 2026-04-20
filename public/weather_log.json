@@ -698,5 +698,10 @@
     "date": "2026-04-19T17:45",
     "weather_code": 1,
     "temperature": 19.0
+  },
+  {
+    "date": "2026-04-20T11:45",
+    "weather_code": 1,
+    "temperature": 20.3
   }
 ]
