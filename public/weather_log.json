@@ -803,5 +803,10 @@
     "date": "2026-04-27T12:15",
     "weather_code": 51,
     "temperature": 15.5
+  },
+  {
+    "date": "2026-04-27T19:15",
+    "weather_code": 1,
+    "temperature": 14.2
   }
 ]
